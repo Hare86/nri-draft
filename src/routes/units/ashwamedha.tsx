@@ -105,9 +105,9 @@ function Ashwamedha() {
           {[
             {
               label: "Instagram",
-              meta: "@ashwamedha_school_of_arts123",
+              meta: "Profile",
               href: "https://www.instagram.com/ashwamedha_school_of_arts123/",
-              body: "Photos, reels and announcements from the school.",
+              body: "@ashwamedha_school_of_arts123 — photos, reels and announcements from the school.",
             },
             {
               label: "Performance video",
@@ -133,7 +133,7 @@ function Ashwamedha() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block h-full transition-opacity hover:opacity-90"
+              className="block h-full break-words transition-opacity hover:opacity-90"
             >
               <Card title={s.label} meta={s.meta}>
                 {s.body}
