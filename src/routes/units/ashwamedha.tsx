@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ExternalLink } from "lucide-react";
 import heroArts from "@/assets/hero-arts.jpg";
+import { Button } from "@/components/ui/button";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
 import { COURSES, FACULTY } from "@/content/trust";
 
@@ -128,17 +130,18 @@ function Ashwamedha() {
               body: "Another stage recital by our students.",
             },
           ].map((s) => (
-            <a
-              key={s.href}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full break-words transition-opacity hover:opacity-90"
-            >
-              <Card title={s.label} meta={s.meta}>
-                {s.body}
-              </Card>
-            </a>
+            <Card key={s.href} title={s.label} meta={s.meta}>
+              <p>{s.body}</p>
+              <Button
+                asChild
+                className="mt-5 w-full rounded-sm bg-navy text-cream hover:bg-maroon"
+              >
+                <a href={s.href} target="_top" rel="noopener noreferrer external">
+                  Open {s.meta}
+                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </Button>
+            </Card>
           ))}
         </div>
       </Section>
