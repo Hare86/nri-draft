@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UserGuideRouteImport } from './routes/user-guide'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as UnitsPreschoolRouteImport } from './routes/units/preschool'
 import { Route as UnitsAshwamedhaRouteImport } from './routes/units/ashwamedha'
 
+const UserGuideRoute = UserGuideRouteImport.update({
+  id: '/user-guide',
+  path: '/user-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgramsRoute = ProgramsRouteImport.update({
   id: '/programs',
   path: '/programs',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/user-guide': typeof UserGuideRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/user-guide': typeof UserGuideRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/user-guide': typeof UserGuideRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/user-guide'
     | '/units/ashwamedha'
     | '/units/preschool'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/user-guide'
     | '/units/ashwamedha'
     | '/units/preschool'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/user-guide'
     | '/units/ashwamedha'
     | '/units/preschool'
   fileRoutesById: FileRoutesById
@@ -143,12 +155,20 @@ export interface RootRouteChildren {
   GetInvolvedRoute: typeof GetInvolvedRoute
   NewsRoute: typeof NewsRoute
   ProgramsRoute: typeof ProgramsRoute
+  UserGuideRoute: typeof UserGuideRoute
   UnitsAshwamedhaRoute: typeof UnitsAshwamedhaRoute
   UnitsPreschoolRoute: typeof UnitsPreschoolRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/user-guide': {
+      id: '/user-guide'
+      path: '/user-guide'
+      fullPath: '/user-guide'
+      preLoaderRoute: typeof UserGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/programs': {
       id: '/programs'
       path: '/programs'
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   GetInvolvedRoute: GetInvolvedRoute,
   NewsRoute: NewsRoute,
   ProgramsRoute: ProgramsRoute,
+  UserGuideRoute: UserGuideRoute,
   UnitsAshwamedhaRoute: UnitsAshwamedhaRoute,
   UnitsPreschoolRoute: UnitsPreschoolRoute,
 }
