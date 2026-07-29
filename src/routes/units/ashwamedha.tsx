@@ -96,7 +96,54 @@ function Ashwamedha() {
         </div>
       </Section>
 
-      <Section eyebrow="Join us" title="Admissions">
+      <Section
+        eyebrow="Follow us"
+        title="Ashwamedha online"
+        intro="Watch recent performances and class highlights on our social channels."
+      >
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              label: "Instagram",
+              meta: "@ashwamedha_school_of_arts123",
+              href: "https://www.instagram.com/ashwamedha_school_of_arts123/",
+              body: "Photos, reels and announcements from the school.",
+            },
+            {
+              label: "Performance video",
+              meta: "Facebook",
+              href: "https://www.facebook.com/share/v/1ELPHSGyC9/",
+              body: "A recent student performance shared on Facebook.",
+            },
+            {
+              label: "Featured reel",
+              meta: "Facebook",
+              href: "https://www.facebook.com/share/r/19KuVDR2Hd/",
+              body: "Short reel from a recent recital.",
+            },
+            {
+              label: "Stage recital",
+              meta: "Facebook",
+              href: "https://www.facebook.com/share/v/18b3RKAjSH/",
+              body: "Another stage recital by our students.",
+            },
+          ].map((s) => (
+            <a
+              key={s.href}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full transition-opacity hover:opacity-90"
+            >
+              <Card title={s.label} meta={s.meta}>
+                {s.body}
+              </Card>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="muted" eyebrow="Join us" title="Admissions">
         <div className="crest-frame rounded-sm bg-card p-8">
           <p className="leading-relaxed text-muted-foreground">
             Admissions are open through the year, subject to batch availability. Placement
