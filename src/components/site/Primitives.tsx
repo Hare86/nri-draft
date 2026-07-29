@@ -78,7 +78,7 @@ export function Card({
   return (
     <article className="crest-frame h-full rounded-sm bg-card p-6">
       {meta ? (
-        <p className="text-xs tracking-[0.18em] text-maroon uppercase">{meta}</p>
+        <p className="text-xs tracking-[0.18em] text-maroon uppercase break-words">{meta}</p>
       ) : null}
       <h3 className="mt-2 font-display text-xl font-semibold">{title}</h3>
       {children ? (
