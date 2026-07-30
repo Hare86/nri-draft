@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import { createFileRoute, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ExternalLink, Plus, Trash2 } from "lucide-react";
@@ -156,9 +156,9 @@ function SectionEditor() {
           <p className="mt-1 text-sm text-muted-foreground">{def.hint ?? `Shown on ${def.page}`}</p>
         </div>
         <Button variant="outline" size="sm" asChild>
-          <Link to={def.page}>
+          <a href={def.page} target="_top" rel="noopener noreferrer">
             <ExternalLink className="h-3.5 w-3.5" /> View page
-          </Link>
+          </a>
         </Button>
       </div>
 
