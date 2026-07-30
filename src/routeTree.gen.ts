@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as UnitsPreschoolRouteImport } from './routes/units/preschool'
 import { Route as UnitsAshwamedhaRouteImport } from './routes/units/ashwamedha'
+import { Route as AdminMediaRouteImport } from './routes/admin.media'
 
 const UserGuideRoute = UserGuideRouteImport.update({
   id: '/user-guide',
@@ -88,6 +89,11 @@ const UnitsAshwamedhaRoute = UnitsAshwamedhaRouteImport.update({
   path: '/units/ashwamedha',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin': typeof AdminIndexRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
@@ -289,14 +301,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnitsAshwamedhaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminMediaRoute: typeof AdminMediaRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminMediaRoute: AdminMediaRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
