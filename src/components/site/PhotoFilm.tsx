@@ -14,13 +14,20 @@ export function PhotoFilm({
   className,
   tone = "light",
   interval = 3800,
+  /** Scroll animation duration in seconds. */
+  scrollSeconds = 0.8,
 }: {
   slides: readonly FilmSlide[];
   className?: string;
   tone?: "light" | "dark";
   interval?: number;
+  scrollSeconds?: number;
 }) {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true, align: "start" });
+  const [emblaRef, embla] = useEmblaCarousel({
+    loop: true,
+    align: "start",
+    duration: Math.round(scrollSeconds * 100),
+  });
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
