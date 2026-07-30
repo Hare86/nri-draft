@@ -3,7 +3,7 @@ import { GraduationCap, HandHeart, Music, Sparkles } from "lucide-react";
 import heroArts from "@/assets/hero-arts.jpg";
 import logo from "@/assets/nri-logo.jpg.asset.json";
 import { Card, Section } from "@/components/site/Primitives";
-import { PhotoFilm, type FilmSlide } from "@/components/site/PhotoFilm";
+import { PhotoFilm, toSlides, type FilmSlide } from "@/components/site/PhotoFilm";
 import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/")({
@@ -25,16 +25,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-type Photo = { url?: string; alt?: string; caption?: string };
-
-export function toSlides(photos: Photo[] | undefined): FilmSlide[] {
-  return (photos ?? []).map((p) => ({
-    src: p.url || undefined,
-    alt: p.alt ?? "",
-    caption: p.caption,
-  }));
-}
 
 function UnitBranch({
   logoUrl,

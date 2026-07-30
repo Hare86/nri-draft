@@ -3,9 +3,8 @@ import { ExternalLink } from "lucide-react";
 import heroArts from "@/assets/hero-arts.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { PhotoFilm } from "@/components/site/PhotoFilm";
+import { PhotoFilm, toSlides } from "@/components/site/PhotoFilm";
 import { useContent } from "@/lib/site-content";
-import { toSlides } from "@/routes/index";
 
 export const Route = createFileRoute("/units/ashwamedha")({
   head: () => ({
