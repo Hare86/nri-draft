@@ -55,9 +55,9 @@ function UnitBranch({
   cta: string;
 }) {
   return (
-    <div className="crest-frame relative rounded-sm bg-navy/40 p-6 lg:p-8">
+    <div className="relative">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-navy font-display text-2xl font-semibold text-gold">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/15 font-display text-xl font-semibold text-gold">
           {monogram}
         </div>
         <div className="min-w-0">
@@ -65,17 +65,18 @@ function UnitBranch({
           <p className="text-xs tracking-[0.2em] text-gold uppercase">{tagline}</p>
         </div>
       </div>
-      <p className="mt-4 text-sm leading-relaxed text-cream/75">{description}</p>
+      <p className="mt-4 text-sm leading-relaxed text-cream/70">{description}</p>
       <PhotoFilm slides={slides} tone="dark" className="mt-6" />
       <Link
         to={to}
-        className="mt-6 inline-block rounded-sm border border-gold/60 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-navy"
+        className="mt-6 inline-block text-sm font-semibold text-gold underline underline-offset-4 hover:opacity-80"
       >
         {cta}
       </Link>
     </div>
   );
 }
+
 
 function Index() {
   return (
@@ -128,17 +129,8 @@ function Index() {
             <PhotoFilm slides={TRUST_FILM.map((f) => ({ ...f }))} tone="dark" className="mt-10" />
           </div>
 
-          {/* Family-tree connectors */}
-          <div aria-hidden className="relative mx-auto mt-10 h-14 w-full max-w-5xl lg:h-16">
-            <span className="absolute top-0 left-1/2 h-6 w-px -translate-x-1/2 bg-gold/50" />
-            <span className="absolute top-6 left-1/4 hidden h-px w-1/2 bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-1/4 hidden h-8 w-px bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-3/4 hidden h-8 w-px bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-1/2 h-8 w-px -translate-x-1/2 bg-gold/50 lg:hidden" />
-          </div>
-
-          {/* Second & third parts — the units */}
-          <div className="grid gap-8 lg:grid-cols-2">
+          {/* Second & third parts — the units, visually branching below the Trust */}
+          <div className="mx-auto mt-16 grid max-w-6xl gap-14 lg:grid-cols-2 lg:gap-20">
             <UnitBranch
               name={UNITS.ashwamedha.name}
               tagline={UNITS.ashwamedha.tagline}
@@ -160,8 +152,9 @@ function Index() {
           </div>
 
           {/* Global actions — bottom-most within the frame */}
-          <div className="mt-12 border-t border-gold/25 pt-8">
+          <div className="mt-16">
             <div className="flex flex-wrap justify-center gap-3">
+
               <Link
                 to="/get-involved"
                 className="rounded-sm bg-gold px-6 py-3 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
