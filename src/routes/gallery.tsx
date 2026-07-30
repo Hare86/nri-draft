@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import heroArts from "@/assets/hero-arts.jpg";
-import preschoolImg from "@/assets/preschool.jpg";
+import { ImageIcon } from "lucide-react";
 import { PageHero, Section } from "@/components/site/Primitives";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -22,36 +22,30 @@ export const Route = createFileRoute("/gallery")({
   component: Gallery,
 });
 
-const items = [
-  { src: heroArts, caption: "Arangetram recital", w: 1600, h: 900 },
-  { src: preschoolImg, caption: "Preschool learning corners", w: 1400, h: 900 },
-  { src: heroArts, caption: "Navaratri evening", w: 1600, h: 900 },
-  { src: preschoolImg, caption: "Craft session", w: 1400, h: 900 },
-  { src: heroArts, caption: "Guru Purnima", w: 1600, h: 900 },
-  { src: preschoolImg, caption: "Annual day rehearsal", w: 1400, h: 900 },
-];
-
 function Gallery() {
+  const photos = useContent<any>("gallery.photos");
+  const videos = useContent<any>("gallery.videos");
+
   return (
     <>
-      <PageHero
-        eyebrow="Media"
-        title="Gallery"
-        subtitle="A growing archive of performances, classrooms and celebrations. Final photographs and videos will be added before launch."
-      />
+      <PageHero eyebrow="Media" title="Gallery" subtitle={photos.subtitle} />
 
-      <Section eyebrow="Photographs" title="Recent moments">
+      <Section eyebrow={photos.eyebrow} title={photos.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, i) => (
+          {(photos.photos ?? []).map((item: any, i: number) => (
             <figure key={i} className="crest-frame overflow-hidden rounded-sm bg-card">
-              <img
-                src={item.src}
-                alt={item.caption}
-                width={item.w}
-                height={item.h}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
+              {item.url ? (
+                <img
+                  src={item.url}
+                  alt={item.alt || item.caption || "Gallery photograph"}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              ) : (
+                <div className="grid aspect-[4/3] w-full place-items-center bg-secondary text-muted-foreground">
+                  <ImageIcon className="h-6 w-6 text-gold" aria-hidden />
+                </div>
+              )}
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 {item.caption}
               </figcaption>
@@ -60,16 +54,27 @@ function Gallery() {
         </div>
       </Section>
 
-      <Section tone="muted" eyebrow="Videos" title="Performance recordings">
+      <Section tone="muted" eyebrow={videos.eyebrow} title={videos.title}>
         <div className="grid gap-6 md:grid-cols-3">
-          {["Bharatanatyam recital", "Carnatic vocal concert", "Preschool annual day"].map(
-            (label) => (
+          {(videos.items ?? []).map((v: any, i: number) =>
+            v.href ? (
+              <div key={i} className="crest-frame overflow-hidden rounded-sm bg-navy">
+                <iframe
+                  src={v.href}
+                  title={v.label}
+                  loading="lazy"
+                  allowFullScreen
+                  className="aspect-video w-full"
+                />
+                <p className="px-4 py-3 text-sm text-cream/80">{v.label}</p>
+              </div>
+            ) : (
               <div
-                key={label}
+                key={i}
                 className="crest-frame grid aspect-video place-items-center rounded-sm bg-navy text-center text-sm text-cream/70"
               >
                 <span>
-                  {label}
+                  {v.label}
                   <br />
                   <span className="text-xs text-gold">Video to be added</span>
                 </span>
