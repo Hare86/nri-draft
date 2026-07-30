@@ -55,9 +55,9 @@ function UnitBranch({
   cta: string;
 }) {
   return (
-    <div className="crest-frame relative rounded-sm bg-navy/40 p-6 lg:p-8">
+    <div className="relative">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-navy font-display text-2xl font-semibold text-gold">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold/15 font-display text-xl font-semibold text-gold">
           {monogram}
         </div>
         <div className="min-w-0">
@@ -65,17 +65,18 @@ function UnitBranch({
           <p className="text-xs tracking-[0.2em] text-gold uppercase">{tagline}</p>
         </div>
       </div>
-      <p className="mt-4 text-sm leading-relaxed text-cream/75">{description}</p>
+      <p className="mt-4 text-sm leading-relaxed text-cream/70">{description}</p>
       <PhotoFilm slides={slides} tone="dark" className="mt-6" />
       <Link
         to={to}
-        className="mt-6 inline-block rounded-sm border border-gold/60 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-navy"
+        className="mt-6 inline-block text-sm font-semibold text-gold underline underline-offset-4 hover:opacity-80"
       >
         {cta}
       </Link>
     </div>
   );
 }
+
 
 function Index() {
   return (
