@@ -1,52 +1,44 @@
-## Goal
+# Landing page: family-tree layout for NRI Trust
 
-A detailed user guide covering every navigation path on the NRI Trust site, written for the three audiences that exist today:
+Restructure the home page (`/`) into a three-part "family tree" frame showing the Trust at the top and its two units branching below.
 
-- **Visitors / users** — parents, students, donors browsing the public site
-- **Customers** — prospective parents and students enquiring, enrolling or donating
-- **Admins** — the trust team who maintain content (there is no login system today; admin work is content editing in the project)
-
-Delivered in two places: a Markdown file in the repo and a page on the site.
-
-## Deliverable 1 — `USER_GUIDE.md` (repo root)
-
-Detailed, step-by-step. Sections:
-
-1. **Overview** — what the site is, the 9 pages, the navy/maroon/gold identity.
-2. **Site map & navigation** — full route table:
+## Layout
 
 ```text
-/                      Home        hero, three pillars, CTAs
-/about                 About Us    history, vision, motto, trustees
-/units/ashwamedha      Arts        mission, courses, faculty, method, social links
-/units/preschool       Preschool   approach, age groups, daily rhythm
-/programs              Programs    event calendar, recurring celebrations
-/gallery               Gallery     photo + video grid
-/news                  News        announcements
-/get-involved          Donate      bank / UPI / 80G, volunteering, admissions
-/contact               Contact     office details + enquiry form
++-------------------------------------------------------+
+|            NRI TRUST (logo + name + details)          |
+|            [ scrolling photo film / carousel ]        |
++---------------------------+---------------------------+
+        |  connector lines drawn down + across  |
++---------------------------+---------------------------+
+| ASHWAMEDHA SCHOOL OF ARTS |        PRESCHOOL          |
+| logo placeholder          | logo placeholder          |
+| description               | description               |
+| [ photo film carousel ]   | [ photo film carousel ]   |
++---------------------------+---------------------------+
+|        < Donate >   < Enroll >   < Volunteer >        |
++-------------------------------------------------------+
 ```
 
-3. **Header, footer and mobile menu** — desktop nav, the gold Donate button, the hamburger menu below XL, footer Explore/Reach Us columns, social icons, 404 behaviour.
-4. **Visitor journeys** — click-by-click walkthroughs: "find a course", "check event dates", "view the gallery", "read news", "open the Ashwamedha Instagram/Facebook links" (noting these open in a new tab and are blocked inside the Lovable preview frame, working normally on the published site).
-5. **Customer journeys** — enquire via the contact form (field by field, what happens on submit), preschool admissions path, arts admissions path, donating via bank transfer / UPI / 80G receipt request.
-6. **Admin guide** — the important part, task by task:
-   - Update trust details (name, address, phone, email, registration, social links) in `src/content/trust.ts`.
-   - Add/edit trustees, faculty, courses, programs, news — each array's shape with a copy-paste example.
-   - Replace images (logo, hero, preschool) and where they're referenced.
-   - Add a new page: create the route file, add it to the header `nav` array and the footer Explore list, set its `head()` metadata.
-   - Update SEO titles/descriptions per page.
-   - Pre-demo checklist of every remaining placeholder to replace.
-7. **Not available today** — plainly states there is no login, admin dashboard, customer account, or database; the contact form is UI-only and does not yet send anywhere. Notes what enabling a backend would add.
+## What changes
 
-## Deliverable 2 — `/user-guide` page
+1. **Top part** — existing crest logo, full trust name, tagline, Sanskrit motto, plus a compact details line (established / registration / contact from `src/content/trust.ts`). Below it, a horizontally scrolling photo film.
+2. **Branch connectors** — thin gold lines (CSS borders, no images) running from the trust block down and out to each child block, so it reads as a family tree on desktop. On mobile the three parts stack vertically with a single vertical connector.
+3. **Bottom left** — Ashwamedha School of Arts: circular gold-ringed logo placeholder (crest monogram "A" until the real logo arrives), short description, own photo film carousel, and a link through to `/units/ashwamedha`.
+4. **Bottom right** — Preschool: same structure, links to `/units/preschool`.
+5. **Action bar** — Donate / Enroll / Volunteer moved out of the hero and placed in a single centered row at the very bottom of the frame, on the navy band spanning full width, so it sits below all three parts without disturbing the tree.
+6. Sections further down the page (three pillars, preschool feature, programs, donate CTA) stay as they are; the pillars block is trimmed to avoid repeating the tree content.
 
-New route `src/routes/user-guide.tsx`, built with the existing `PageHero`, `Section` and `Card` primitives so it matches the site's identity. Contains the visitor-facing portions: site map with working `<Link>`s to every page, what each page contains, how to navigate on mobile, how to enquire, enrol and donate, and an FAQ-style closing section. Admin/content-editing detail stays in the Markdown file (linked from the page as "for the trust team").
+## Photo film carousel
 
-Linked from the footer under a small "Help" item; not added to the main header nav to keep it uncluttered. Gets its own `head()` title, description, og:title, og:description.
+- Uses the existing `src/components/ui/carousel.tsx` (embla) already in the project.
+- New reusable `PhotoFilm` component in `src/components/site/PhotoFilm.tsx`: responsive slide widths (1 up on mobile, 2–3 on desktop), auto-advancing loop with pause on hover/focus, keyboard and swipe support, and a film-strip frame (gold border + perforation strip) for the "photo film" feel.
+- Slides accept an image list; where no assets exist yet, they render labelled placeholder tiles (navy/cream gradient + caption "Photo coming soon"). Existing `hero-arts.jpg` and `preschool.jpg` are reused as sample frames so it never looks empty.
+- Placeholder image lists live in `src/content/trust.ts` so swapping in real photos later is a one-file edit.
 
 ## Technical notes
 
-- No backend, no new dependencies — static content only.
-- Route follows file-based routing: `src/routes/user-guide.tsx` with `createFileRoute("/user-guide")`; `routeTree.gen.ts` regenerates automatically.
-- Footer change is one list item in `SiteFooter.tsx`.
+- Only `src/routes/index.tsx` is restructured; new `PhotoFilm` component added; small additions to `src/content/trust.ts` for the film/placeholder data and unit descriptions.
+- No new dependencies; carousel autoplay handled with a small effect using the embla API rather than adding `embla-carousel-autoplay` unless it is already installed.
+- All colours use existing tokens (navy, gold, maroon, cream) — no hardcoded colour classes.
+- Head metadata on `/` stays unchanged.
