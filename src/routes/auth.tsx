@@ -71,6 +71,7 @@ function AuthPage() {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setBusy(false);
+    }
   }
 
   async function oauth(provider: "google" | "apple") {
@@ -92,7 +93,6 @@ function AuthPage() {
     }
   }
 
-  }
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16">
