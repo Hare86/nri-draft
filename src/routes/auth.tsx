@@ -115,7 +115,36 @@ function AuthPage() {
         </p>
       )}
 
-      <form onSubmit={submit} className="crest-frame mt-8 space-y-4 rounded-sm bg-card p-6">
+      {mode !== "forgot" && (
+        <div className="mt-8 space-y-3">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy}
+            onClick={() => oauth("google")}
+            className="w-full"
+          >
+            Continue with Google
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy}
+            onClick={() => oauth("apple")}
+            className="w-full"
+          >
+            Continue with Apple
+          </Button>
+          <div className="flex items-center gap-3 pt-1 text-xs uppercase tracking-widest text-muted-foreground">
+            <span className="h-px flex-1 bg-border" />
+            or use email
+            <span className="h-px flex-1 bg-border" />
+          </div>
+        </div>
+      )}
+
+      <form onSubmit={submit} className="crest-frame mt-6 space-y-4 rounded-sm bg-card p-6">
+
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
