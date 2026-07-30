@@ -129,17 +129,8 @@ function Index() {
             <PhotoFilm slides={TRUST_FILM.map((f) => ({ ...f }))} tone="dark" className="mt-10" />
           </div>
 
-          {/* Family-tree connectors */}
-          <div aria-hidden className="relative mx-auto mt-10 h-14 w-full max-w-5xl lg:h-16">
-            <span className="absolute top-0 left-1/2 h-6 w-px -translate-x-1/2 bg-gold/50" />
-            <span className="absolute top-6 left-1/4 hidden h-px w-1/2 bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-1/4 hidden h-8 w-px bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-3/4 hidden h-8 w-px bg-gold/50 lg:block" />
-            <span className="absolute top-6 left-1/2 h-8 w-px -translate-x-1/2 bg-gold/50 lg:hidden" />
-          </div>
-
-          {/* Second & third parts — the units */}
-          <div className="grid gap-8 lg:grid-cols-2">
+          {/* Second & third parts — the units, visually branching below the Trust */}
+          <div className="mx-auto mt-16 grid max-w-6xl gap-14 lg:grid-cols-2 lg:gap-20">
             <UnitBranch
               name={UNITS.ashwamedha.name}
               tagline={UNITS.ashwamedha.tagline}
@@ -161,8 +152,9 @@ function Index() {
           </div>
 
           {/* Global actions — bottom-most within the frame */}
-          <div className="mt-12 border-t border-gold/25 pt-8">
+          <div className="mt-16">
             <div className="flex flex-wrap justify-center gap-3">
+
               <Link
                 to="/get-involved"
                 className="rounded-sm bg-gold px-6 py-3 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
