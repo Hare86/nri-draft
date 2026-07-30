@@ -19,6 +19,7 @@ import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UserGuideRouteImport } from './routes/user-guide'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
@@ -79,6 +80,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UserGuideRoute = UserGuideRouteImport.update({
   id: '/user-guide',
   path: '/user-guide',
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/programs'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   NewsRoute: typeof NewsRoute
   ProgramsRoute: typeof ProgramsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UserGuideRoute: typeof UserGuideRoute
   UnitsAshwamedhaRoute: typeof UnitsAshwamedhaRoute
   UnitsPreschoolRoute: typeof UnitsPreschoolRouteWithChildren
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/user-guide': {
@@ -449,6 +469,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsRoute: NewsRoute,
   ProgramsRoute: ProgramsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   UserGuideRoute: UserGuideRoute,
   UnitsAshwamedhaRoute: UnitsAshwamedhaRoute,
   UnitsPreschoolRoute: UnitsPreschoolRouteWithChildren,
