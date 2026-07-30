@@ -61,6 +61,13 @@ function Preschool() {
             </Card>
           ))}
         </div>
+        <p className="mt-8 text-sm text-muted-foreground">
+          Want the detail?{" "}
+          <Link to="/units/preschool/curriculum" className="font-semibold text-navy underline">
+            Read our full preschool curriculum guide
+          </Link>{" "}
+          — activities, daily routine and learning outcomes by age.
+        </p>
       </Section>
 
       <Section eyebrow={day.eyebrow} title={day.title}>
