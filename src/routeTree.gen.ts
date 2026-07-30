@@ -23,6 +23,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as UnitsPreschoolRouteImport } from './routes/units/preschool'
 import { Route as UnitsAshwamedhaRouteImport } from './routes/units/ashwamedha'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
+import { Route as AdminContentKeyRouteImport } from './routes/admin.content.$key'
 
 const UserGuideRoute = UserGuideRouteImport.update({
   id: '/user-guide',
@@ -94,6 +95,11 @@ const AdminMediaRoute = AdminMediaRouteImport.update({
   path: '/media',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminContentKeyRoute = AdminContentKeyRouteImport.update({
+  id: '/content/$key',
+  path: '/content/$key',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
+    | '/admin/content/$key'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin'
+    | '/admin/content/$key'
   id:
     | '__root__'
     | '/'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
+    | '/admin/content/$key'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -308,17 +320,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMediaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/content/$key': {
+      id: '/admin/content/$key'
+      path: '/content/$key'
+      fullPath: '/admin/content/$key'
+      preLoaderRoute: typeof AdminContentKeyRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminMediaRoute: typeof AdminMediaRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminContentKeyRoute: typeof AdminContentKeyRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminMediaRoute: AdminMediaRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminContentKeyRoute: AdminContentKeyRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
