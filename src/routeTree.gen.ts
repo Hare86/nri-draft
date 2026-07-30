@@ -18,6 +18,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProgramsRouteImport } from './routes/programs'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as UserGuideRouteImport } from './routes/user-guide'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
@@ -72,6 +73,11 @@ const ProgramsRoute = ProgramsRouteImport.update({
   path: '/programs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UserGuideRoute = UserGuideRouteImport.update({
   id: '/user-guide',
   path: '/user-guide',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/reset-password'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/reset-password'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/get-involved'
     | '/news'
     | '/programs'
+    | '/reset-password'
     | '/user-guide'
     | '/admin/media'
     | '/admin/messages'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   GetInvolvedRoute: typeof GetInvolvedRoute
   NewsRoute: typeof NewsRoute
   ProgramsRoute: typeof ProgramsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   UserGuideRoute: typeof UserGuideRoute
   UnitsAshwamedhaRoute: typeof UnitsAshwamedhaRoute
   UnitsPreschoolRoute: typeof UnitsPreschoolRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/programs'
       fullPath: '/programs'
       preLoaderRoute: typeof ProgramsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/user-guide': {
@@ -396,6 +416,7 @@ const rootRouteChildren: RootRouteChildren = {
   GetInvolvedRoute: GetInvolvedRoute,
   NewsRoute: NewsRoute,
   ProgramsRoute: ProgramsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   UserGuideRoute: UserGuideRoute,
   UnitsAshwamedhaRoute: UnitsAshwamedhaRoute,
   UnitsPreschoolRoute: UnitsPreschoolRoute,
