@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as UnitsPreschoolRouteImport } from './routes/units/preschool'
 import { Route as UnitsAshwamedhaRouteImport } from './routes/units/ashwamedha'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminContentKeyRouteImport } from './routes/admin.content.$key'
 
@@ -90,6 +91,11 @@ const UnitsAshwamedhaRoute = UnitsAshwamedhaRouteImport.update({
   path: '/units/ashwamedha',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMediaRoute = AdminMediaRouteImport.update({
   id: '/media',
   path: '/media',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin': typeof AdminIndexRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
   '/admin/': typeof AdminIndexRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/user-guide'
     | '/admin/media'
+    | '/admin/messages'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/user-guide'
     | '/admin/media'
+    | '/admin/messages'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/programs'
     | '/user-guide'
     | '/admin/media'
+    | '/admin/messages'
     | '/units/ashwamedha'
     | '/units/preschool'
     | '/admin/'
@@ -313,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnitsAshwamedhaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/media': {
       id: '/admin/media'
       path: '/media'
@@ -332,12 +351,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminMediaRoute: typeof AdminMediaRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminContentKeyRoute: typeof AdminContentKeyRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminMediaRoute: AdminMediaRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminContentKeyRoute: AdminContentKeyRoute,
 }
