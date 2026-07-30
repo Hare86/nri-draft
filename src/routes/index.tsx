@@ -4,7 +4,8 @@ import heroArts from "@/assets/hero-arts.jpg";
 import preschoolImg from "@/assets/preschool.jpg";
 import logo from "@/assets/nri-logo.jpg.asset.json";
 import { Card, Section } from "@/components/site/Primitives";
-import { PROGRAMS, TRUST } from "@/content/trust";
+import { PhotoFilm, type FilmSlide } from "@/components/site/PhotoFilm";
+import { PROGRAMS, TRUST, TRUST_FILM, UNITS } from "@/content/trust";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,6 +27,56 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const artsFilm: FilmSlide[] = [
+  { src: heroArts, alt: "Bharatanatyam dancer performing" },
+  ...UNITS.ashwamedha.film.map((f) => ({ ...f })),
+];
+
+const preschoolFilm: FilmSlide[] = [
+  { src: preschoolImg, alt: "Bright preschool classroom" },
+  ...UNITS.preschool.film.map((f) => ({ ...f })),
+];
+
+function UnitBranch({
+  name,
+  tagline,
+  description,
+  monogram,
+  slides,
+  to,
+  cta,
+}: {
+  name: string;
+  tagline: string;
+  description: string;
+  monogram: string;
+  slides: FilmSlide[];
+  to: string;
+  cta: string;
+}) {
+  return (
+    <div className="crest-frame relative rounded-sm bg-navy/40 p-6 lg:p-8">
+      <div className="flex items-center gap-4">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold/60 bg-navy font-display text-2xl font-semibold text-gold">
+          {monogram}
+        </div>
+        <div className="min-w-0">
+          <h3 className="font-display text-2xl font-semibold text-cream">{name}</h3>
+          <p className="text-xs tracking-[0.2em] text-gold uppercase">{tagline}</p>
+        </div>
+      </div>
+      <p className="mt-4 text-sm leading-relaxed text-cream/75">{description}</p>
+      <PhotoFilm slides={slides} tone="dark" className="mt-6" />
+      <Link
+        to={to}
+        className="mt-6 inline-block rounded-sm border border-gold/60 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-navy"
+      >
+        {cta}
+      </Link>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <>
@@ -35,44 +86,101 @@ function Index() {
           alt="Bharatanatyam dancer performing in a traditional hall"
           width={1600}
           height={900}
-          className="absolute inset-0 h-full w-full object-cover opacity-30"
+          className="absolute inset-0 h-full w-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/85 via-navy/75 to-navy" />
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center lg:px-8 lg:py-28">
-          <img
-            src={logo.url}
-            alt="NRI Educational Trust crest"
-            className="mx-auto h-32 w-32 rounded-full object-cover ring-2 ring-gold/70 sm:h-40 sm:w-40"
-          />
-          <h1 className="mt-8 font-display text-4xl leading-tight font-semibold sm:text-6xl">
-            {TRUST.name}
-          </h1>
-          <div className="gold-rule mx-auto mt-6 w-48" />
-          <p className="mt-6 text-sm tracking-[0.28em] text-gold uppercase sm:text-base">
-            {TRUST.tagline}
-          </p>
-          <p className="mt-6 font-display text-2xl text-cream/90">{TRUST.mottoSanskrit}</p>
-          <p className="text-sm text-cream/60">{TRUST.mottoEnglish}</p>
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/85 to-navy" />
 
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/get-involved"
-              className="rounded-sm bg-gold px-6 py-3 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
-            >
-              Donate
-            </Link>
-            <Link
+        <div className="relative mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-20">
+          {/* First part — the Trust */}
+          <div className="mx-auto max-w-4xl text-center">
+            <img
+              src={logo.url}
+              alt="NRI Educational Trust crest"
+              className="mx-auto h-32 w-32 rounded-full object-cover ring-2 ring-gold/70 sm:h-40 sm:w-40"
+            />
+            <h1 className="mt-8 font-display text-4xl leading-tight font-semibold sm:text-5xl">
+              {TRUST.name}
+            </h1>
+            <div className="gold-rule mx-auto mt-6 w-48" />
+            <p className="mt-6 text-sm tracking-[0.28em] text-gold uppercase sm:text-base">
+              {TRUST.tagline}
+            </p>
+            <p className="mt-6 font-display text-2xl text-cream/90">{TRUST.mottoSanskrit}</p>
+            <p className="text-sm text-cream/60">{TRUST.mottoEnglish}</p>
+
+            <dl className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-cream/70">
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-gold uppercase">Established</dt>
+                <dd className="mt-1">{TRUST.established}</dd>
+              </div>
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-gold uppercase">Registration</dt>
+                <dd className="mt-1">{TRUST.registration}</dd>
+              </div>
+              <div>
+                <dt className="text-xs tracking-[0.2em] text-gold uppercase">Contact</dt>
+                <dd className="mt-1">
+                  {TRUST.phone} · {TRUST.email}
+                </dd>
+              </div>
+            </dl>
+
+            <PhotoFilm slides={TRUST_FILM.map((f) => ({ ...f }))} tone="dark" className="mt-10" />
+          </div>
+
+          {/* Family-tree connectors */}
+          <div aria-hidden className="relative mx-auto mt-10 h-14 w-full max-w-5xl lg:h-16">
+            <span className="absolute top-0 left-1/2 h-6 w-px -translate-x-1/2 bg-gold/50" />
+            <span className="absolute top-6 left-1/4 hidden h-px w-1/2 bg-gold/50 lg:block" />
+            <span className="absolute top-6 left-1/4 hidden h-8 w-px bg-gold/50 lg:block" />
+            <span className="absolute top-6 left-3/4 hidden h-8 w-px bg-gold/50 lg:block" />
+            <span className="absolute top-6 left-1/2 h-8 w-px -translate-x-1/2 bg-gold/50 lg:hidden" />
+          </div>
+
+          {/* Second & third parts — the units */}
+          <div className="grid gap-8 lg:grid-cols-2">
+            <UnitBranch
+              name={UNITS.ashwamedha.name}
+              tagline={UNITS.ashwamedha.tagline}
+              description={UNITS.ashwamedha.description}
+              monogram="A"
+              slides={artsFilm}
+              to="/units/ashwamedha"
+              cta="Explore the school of arts"
+            />
+            <UnitBranch
+              name={UNITS.preschool.name}
+              tagline={UNITS.preschool.tagline}
+              description={UNITS.preschool.description}
+              monogram="P"
+              slides={preschoolFilm}
               to="/units/preschool"
-              className="rounded-sm border border-gold/60 px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-navy"
-            >
-              Enroll
-            </Link>
-            <Link
-              to="/get-involved"
-              className="rounded-sm border border-cream/30 px-6 py-3 text-sm font-semibold text-cream transition-colors hover:border-gold hover:text-gold"
-            >
-              Volunteer
-            </Link>
+              cta="Explore the preschool"
+            />
+          </div>
+
+          {/* Global actions — bottom-most within the frame */}
+          <div className="mt-12 border-t border-gold/25 pt-8">
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                to="/get-involved"
+                className="rounded-sm bg-gold px-6 py-3 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
+              >
+                Donate
+              </Link>
+              <Link
+                to="/units/preschool"
+                className="rounded-sm border border-gold/60 px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-navy"
+              >
+                Enroll
+              </Link>
+              <Link
+                to="/get-involved"
+                className="rounded-sm border border-cream/30 px-6 py-3 text-sm font-semibold text-cream transition-colors hover:border-gold hover:text-gold"
+              >
+                Volunteer
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -100,6 +208,7 @@ function Index() {
           </Card>
         </div>
       </Section>
+
 
       <Section tone="muted">
         <div className="grid items-center gap-10 lg:grid-cols-2">
