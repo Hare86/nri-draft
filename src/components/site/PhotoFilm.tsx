@@ -77,3 +77,14 @@ export function PhotoFilm({
     </div>
   );
 }
+
+/** Convert admin-managed photo records into carousel slides. */
+export function toSlides(
+  photos: { url?: string; alt?: string; caption?: string }[] | undefined,
+): FilmSlide[] {
+  return (photos ?? []).map((p) => ({
+    src: p.url || undefined,
+    alt: p.alt ?? "",
+    caption: p.caption,
+  }));
+}

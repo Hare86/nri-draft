@@ -3,7 +3,8 @@ import { ExternalLink } from "lucide-react";
 import heroArts from "@/assets/hero-arts.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { COURSES, FACULTY } from "@/content/trust";
+import { PhotoFilm, toSlides } from "@/components/site/PhotoFilm";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/units/ashwamedha")({
   head: () => ({
@@ -26,29 +27,27 @@ export const Route = createFileRoute("/units/ashwamedha")({
 });
 
 function Ashwamedha() {
+  const unit = useContent<any>("ashwamedha.unit");
+  const overview = useContent<any>("ashwamedha.overview");
+  const curriculum = useContent<any>("ashwamedha.curriculum");
+  const teachers = useContent<any>("ashwamedha.teachers");
+  const method = useContent<any>("ashwamedha.method");
+  const follow = useContent<any>("ashwamedha.follow");
+  const join = useContent<any>("ashwamedha.join");
+
   return (
     <>
-      <PageHero
-        eyebrow="Our Units"
-        title="Ashwamedha School of Arts"
-        subtitle="Classical training in dance, vocal and instrumental music — taught patiently, performed proudly."
-      />
+      <PageHero eyebrow="Our Units" title={unit.name} subtitle={overview.heroSubtitle} />
 
-      <Section eyebrow="Overview" title="Mission">
+      <Section eyebrow={overview.eyebrow} title={overview.title}>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="space-y-4 leading-relaxed text-muted-foreground">
-            <p>
-              Ashwamedha exists to keep India's classical arts living and joyful. Students
-              learn in small batches under teachers who follow the guru–shishya parampara,
-              progressing from fundamentals to full stage repertoire.
-            </p>
-            <p>
-              Beyond technique, the school teaches the theory, mythology and language
-              behind each piece, so that every performance carries meaning.
-            </p>
+            {(overview.paragraphs ?? []).map((p: any, i: number) => (
+              <p key={i}>{p.text}</p>
+            ))}
           </div>
           <img
-            src={heroArts}
+            src={overview.image || heroArts}
             alt="Student performing Bharatanatyam"
             width={1600}
             height={900}
@@ -56,108 +55,76 @@ function Ashwamedha() {
             className="crest-frame w-full rounded-sm object-cover"
           />
         </div>
+        <PhotoFilm slides={toSlides(unit.photos)} className="mt-10" />
       </Section>
 
-      <Section tone="muted" eyebrow="Curriculum" title="Courses offered">
+      <Section tone="muted" eyebrow={curriculum.eyebrow} title={curriculum.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {COURSES.map((c) => (
-            <Card key={c.title} title={c.title} meta={c.level}>
+          {(curriculum.items ?? []).map((c: any, i: number) => (
+            <Card key={i} title={c.title} meta={c.level}>
               {c.summary}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section eyebrow="Our teachers" title="Faculty">
+      <Section eyebrow={teachers.eyebrow} title={teachers.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {FACULTY.map((f, i) => (
+          {(teachers.items ?? []).map((f: any, i: number) => (
             <Card key={i} title={f.name} meta={f.discipline}>
+              {f.photo && (
+                <img
+                  src={f.photo}
+                  alt={f.name}
+                  loading="lazy"
+                  className="mb-4 h-24 w-24 rounded-full object-cover ring-1 ring-gold/50"
+                />
+              )}
               {f.detail}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section
-        tone="muted"
-        eyebrow="How we teach"
-        title="A unique learning method"
-        intro="Four layers repeat through every level, so students grow in skill and understanding together."
-      >
+      <Section tone="muted" eyebrow={method.eyebrow} title={method.title} intro={method.intro}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["01 · Foundation", "Posture, breath, rhythm and voice culture practised daily."],
-            ["02 · Context", "Meaning, mythology and language behind each composition."],
-            ["03 · Expression", "Abhinaya and manodharma — making the piece personal."],
-            ["04 · Stage", "Regular recitals build confidence long before the arangetram."],
-          ].map(([meta, body]) => (
-            <Card key={meta} title={meta.split(" · ")[1]} meta={meta.split(" · ")[0]}>
-              {body}
+          {(method.items ?? []).map((m: any, i: number) => (
+            <Card key={i} title={m.title} meta={m.meta}>
+              {m.body}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section
-        eyebrow="Follow us"
-        title="Ashwamedha online"
-        intro="Watch recent performances and class highlights on our social channels."
-      >
+      <Section eyebrow={follow.eyebrow} title={follow.title} intro={follow.intro}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              label: "Instagram",
-              meta: "Profile",
-              href: "https://www.instagram.com/ashwamedha_school_of_arts123/",
-              body: "@ashwamedha_school_of_arts123 — photos, reels and announcements from the school.",
-            },
-            {
-              label: "Performance video",
-              meta: "Facebook",
-              href: "https://www.facebook.com/share/v/1ELPHSGyC9/",
-              body: "A recent student performance shared on Facebook.",
-            },
-            {
-              label: "Featured reel",
-              meta: "Facebook",
-              href: "https://www.facebook.com/share/r/19KuVDR2Hd/",
-              body: "Short reel from a recent recital.",
-            },
-            {
-              label: "Stage recital",
-              meta: "Facebook",
-              href: "https://www.facebook.com/share/v/18b3RKAjSH/",
-              body: "Another stage recital by our students.",
-            },
-          ].map((s) => (
-            <Card key={s.href} title={s.label} meta={s.meta}>
+          {(follow.items ?? []).map((s: any, i: number) => (
+            <Card key={i} title={s.label} meta={s.meta}>
               <p>{s.body}</p>
-              <Button
-                asChild
-                className="mt-5 w-full rounded-sm bg-navy text-cream hover:bg-maroon"
-              >
-                <a href={s.href} target="_top" rel="noopener noreferrer external">
-                  Open {s.meta}
-                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </Button>
+              {s.href && (
+                <Button
+                  asChild
+                  className="mt-5 w-full rounded-sm bg-navy text-cream hover:bg-maroon"
+                >
+                  <a href={s.href} target="_top" rel="noopener noreferrer external">
+                    Open {s.meta}
+                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                </Button>
+              )}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section tone="muted" eyebrow="Join us" title="Admissions">
+      <Section tone="muted" eyebrow={join.eyebrow} title={join.title}>
         <div className="crest-frame rounded-sm bg-card p-8">
-          <p className="leading-relaxed text-muted-foreground">
-            Admissions are open through the year, subject to batch availability. Placement
-            for new students is decided after a short informal assessment. Fee structure
-            and class timings will be shared on request.
-          </p>
+          <p className="leading-relaxed text-muted-foreground">{join.body}</p>
           <Link
             to="/contact"
             className="mt-6 inline-block rounded-sm bg-navy px-6 py-3 text-sm font-semibold text-cream"
           >
-            Enquire about admissions
+            {join.ctaLabel}
           </Link>
         </div>
       </Section>

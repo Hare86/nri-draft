@@ -15,10 +15,17 @@ import { Route as NewsRouteImport } from './routes/news'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as UnitsPreschoolRouteImport } from './routes/units/preschool'
 import { Route as UnitsAshwamedhaRouteImport } from './routes/units/ashwamedha'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminMediaRouteImport } from './routes/admin.media'
+import { Route as AdminContentKeyRouteImport } from './routes/admin.content.$key'
 
 const UserGuideRoute = UserGuideRouteImport.update({
   id: '/user-guide',
@@ -50,6 +57,16 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -59,6 +76,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const UnitsPreschoolRoute = UnitsPreschoolRouteImport.update({
   id: '/units/preschool',
@@ -70,86 +92,148 @@ const UnitsAshwamedhaRoute = UnitsAshwamedhaRouteImport.update({
   path: '/units/ashwamedha',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminContentKeyRoute = AdminContentKeyRouteImport.update({
+  id: '/content/$key',
+  path: '/content/$key',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/get-involved': typeof GetInvolvedRoute
   '/news': typeof NewsRoute
   '/programs': typeof ProgramsRoute
   '/user-guide': typeof UserGuideRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/users': typeof AdminUsersRoute
   '/units/ashwamedha': typeof UnitsAshwamedhaRoute
   '/units/preschool': typeof UnitsPreschoolRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/content/$key': typeof AdminContentKeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/gallery'
     | '/get-involved'
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
+    | '/admin/messages'
+    | '/admin/users'
     | '/units/ashwamedha'
     | '/units/preschool'
+    | '/admin/'
+    | '/admin/content/$key'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/gallery'
     | '/get-involved'
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
+    | '/admin/messages'
+    | '/admin/users'
     | '/units/ashwamedha'
     | '/units/preschool'
+    | '/admin'
+    | '/admin/content/$key'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/gallery'
     | '/get-involved'
     | '/news'
     | '/programs'
     | '/user-guide'
+    | '/admin/media'
+    | '/admin/messages'
+    | '/admin/users'
     | '/units/ashwamedha'
     | '/units/preschool'
+    | '/admin/'
+    | '/admin/content/$key'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
@@ -204,6 +288,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -217,6 +315,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/units/preschool': {
       id: '/units/preschool'
@@ -232,12 +337,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnitsAshwamedhaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/content/$key': {
+      id: '/admin/content/$key'
+      path: '/content/$key'
+      fullPath: '/admin/content/$key'
+      preLoaderRoute: typeof AdminContentKeyRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminMediaRoute: typeof AdminMediaRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminContentKeyRoute: typeof AdminContentKeyRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminMediaRoute: AdminMediaRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminContentKeyRoute: AdminContentKeyRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   GetInvolvedRoute: GetInvolvedRoute,
@@ -250,13 +403,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

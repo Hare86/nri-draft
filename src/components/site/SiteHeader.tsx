@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/nri-logo.jpg.asset.json";
 import { cn } from "@/lib/utils";
+import { useContent } from "@/lib/site-content";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -17,22 +18,23 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const identity = useContent<any>("site.identity");
 
   return (
     <header className="sticky top-0 z-50 border-b border-gold/30 bg-navy text-cream">
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 lg:px-8">
         <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
-            src={logo.url}
+            src={identity.logo || logo.url}
             alt="Nagalakshmi Ramamurthy Iyer Educational Trust crest"
             className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-gold/60"
           />
           <span className="min-w-0">
             <span className="block truncate font-display text-lg leading-tight font-semibold text-gold">
-              NRI Educational Trust
+              {identity.shortName}
             </span>
             <span className="hidden truncate text-[11px] tracking-[0.18em] text-cream/70 uppercase sm:block">
-              Excellence in Education, Arts &amp; Values
+              {identity.tagline}
             </span>
           </span>
         </Link>

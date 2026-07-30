@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { TRUST } from "@/content/trust";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({
@@ -22,6 +22,9 @@ export const Route = createFileRoute("/get-involved")({
 });
 
 function GetInvolved() {
+  const ways = useContent<any>("getInvolved.ways");
+  const volunteer = useContent<any>("getInvolved.volunteer");
+
   return (
     <>
       <PageHero
@@ -30,42 +33,34 @@ function GetInvolved() {
         subtitle="Your time, skills or contribution directly funds a child's education and cultural training."
       />
 
-      <Section eyebrow="Donate" title="Ways to contribute">
+      <Section eyebrow={ways.eyebrow} title={ways.title}>
         <div className="grid gap-6 lg:grid-cols-3">
-          <Card title="Bank transfer" meta="NEFT / IMPS">
-            <p>Account name: {TRUST.name}</p>
-            <p>Account number: XXXXXXXXXXXX</p>
-            <p>IFSC: XXXX0000000</p>
-            <p>Bank &amp; branch: To be confirmed</p>
-          </Card>
-          <Card title="UPI" meta="Instant">
-            <p>UPI ID: nritrust@upi (placeholder)</p>
-            <p className="mt-2">
-              A QR code will be added here once the Trust's payment details are finalised.
-            </p>
-          </Card>
-          <Card title="Tax exemption" meta="80G">
-            Receipts are issued for every contribution. 80G exemption status and
-            registration details will be published here once confirmed.
-          </Card>
+          {(ways.items ?? []).map((w: any, i: number) => (
+            <Card key={i} title={w.title} meta={w.meta}>
+              <p className="whitespace-pre-wrap">{w.body}</p>
+            </Card>
+          ))}
         </div>
+        {ways.qr && (
+          <div className="mt-8 flex justify-center">
+            <img
+              src={ways.qr}
+              alt="UPI QR code for donations"
+              loading="lazy"
+              className="crest-frame h-56 w-56 rounded-sm bg-card object-contain p-2"
+            />
+          </div>
+        )}
         <div className="crest-frame mt-8 rounded-sm bg-cream p-6 text-sm text-muted-foreground">
-          Where your donation goes: scholarships and fee waivers, instruments and teaching
-          material, preschool learning resources, and cultural programme costs. An annual
-          statement of use will be published on this page.
+          {ways.note}
         </div>
       </Section>
 
-      <Section tone="muted" eyebrow="Volunteer" title="Give your time">
+      <Section tone="muted" eyebrow={volunteer.eyebrow} title={volunteer.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["Teaching support", "Assist with classes, reading circles or homework help."],
-            ["Event help", "Stage management, hospitality and coordination at events."],
-            ["Media & design", "Photography, videography, social media and print design."],
-            ["Professional skills", "Accounting, legal, technology or fundraising support."],
-          ].map(([title, body]) => (
-            <Card key={title} title={title}>
-              {body}
+          {(volunteer.items ?? []).map((v: any, i: number) => (
+            <Card key={i} title={v.title}>
+              {v.body}
             </Card>
           ))}
         </div>
@@ -76,7 +71,10 @@ function GetInvolved() {
           <Card title="Preschool admissions" meta="Ages 1.5 – 5">
             Visit the campus, meet the teachers and enrol your child for the coming term.
             <div className="mt-4">
-              <Link to="/units/preschool" className="font-semibold text-maroon underline underline-offset-4">
+              <Link
+                to="/units/preschool"
+                className="font-semibold text-maroon underline underline-offset-4"
+              >
                 Preschool details
               </Link>
             </div>
@@ -84,7 +82,10 @@ function GetInvolved() {
           <Card title="Arts admissions" meta="All ages">
             Dance, vocal and instrument batches with placement after a short assessment.
             <div className="mt-4">
-              <Link to="/units/ashwamedha" className="font-semibold text-maroon underline underline-offset-4">
+              <Link
+                to="/units/ashwamedha"
+                className="font-semibold text-maroon underline underline-offset-4"
+              >
                 Ashwamedha details
               </Link>
             </div>

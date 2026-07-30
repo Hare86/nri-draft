@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { TRUST, TRUSTEES } from "@/content/trust";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,37 +22,30 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+  const identity = useContent<any>("site.identity");
+  const hero = useContent<any>("about.hero");
+  const history = useContent<any>("about.history");
+  const trustees = useContent<any>("about.trustees");
+  const values = useContent<any>("about.values");
+
   return (
     <>
-      <PageHero
-        eyebrow="About Us"
-        title="A trust built on knowledge and humility"
-        subtitle={`Established in ${TRUST.established}, the Trust carries forward a family legacy of learning, service and devotion to the classical arts.`}
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
-      <Section eyebrow="Our story" title="History & vision">
+      <Section eyebrow={history.eyebrow} title={history.title}>
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-4 leading-relaxed text-muted-foreground">
-            <p>
-              Placeholder history: the Trust was founded in memory of Smt. Nagalakshmi
-              Ramamurthy Iyer, whose life was devoted to teaching, music and quiet service
-              to her community. What began as informal classes at home has grown into a
-              registered charitable trust serving students across age groups.
-            </p>
-            <p>
-              Placeholder vision: to make high-quality education and classical arts
-              training accessible regardless of means, and to raise a generation that is
-              academically strong, artistically expressive and grounded in values.
-            </p>
+            {(history.paragraphs ?? []).map((p: any, i: number) => (
+              <p key={i}>{p.text}</p>
+            ))}
           </div>
           <div className="crest-frame rounded-sm bg-cream p-8 text-center">
             <p className="text-xs tracking-[0.25em] text-maroon uppercase">Our Motto</p>
-            <p className="mt-4 font-display text-3xl text-navy">{TRUST.mottoSanskrit}</p>
+            <p className="mt-4 font-display text-3xl text-navy">{identity.mottoSanskrit}</p>
             <div className="gold-rule mx-auto mt-4 w-24" />
-            <p className="mt-4 text-sm text-muted-foreground">{TRUST.mottoEnglish}</p>
+            <p className="mt-4 text-sm text-muted-foreground">{identity.mottoEnglish}</p>
             <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              True learning is measured not by what we accumulate, but by the humility and
-              service it inspires.
+              {history.mottoNote}
             </p>
           </div>
         </div>
@@ -60,29 +53,32 @@ function About() {
 
       <Section
         tone="muted"
-        eyebrow="Leadership"
-        title="Trustees & leadership"
-        intro="The Trust is governed by a small board that oversees programmes, finances and community accountability."
+        eyebrow={trustees.eyebrow}
+        title={trustees.title}
+        intro={trustees.intro}
       >
         <div className="grid gap-6 md:grid-cols-3">
-          {TRUSTEES.map((t, i) => (
+          {(trustees.items ?? []).map((t: any, i: number) => (
             <Card key={i} title={t.name} meta={t.role}>
+              {t.photo && (
+                <img
+                  src={t.photo}
+                  alt={t.name}
+                  loading="lazy"
+                  className="mb-4 h-28 w-28 rounded-full object-cover ring-1 ring-gold/50"
+                />
+              )}
               {t.bio}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section eyebrow="What we stand for" title="Our values">
+      <Section eyebrow={values.eyebrow} title={values.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["Access", "Learning opportunities that do not depend on a family's means."],
-            ["Excellence", "Rigorous, traditional training with modern teaching craft."],
-            ["Rootedness", "Language, ritual and art forms carried forward with respect."],
-            ["Accountability", "Transparent use of every rupee contributed to the Trust."],
-          ].map(([title, body]) => (
-            <Card key={title} title={title}>
-              {body}
+          {(values.items ?? []).map((v: any, i: number) => (
+            <Card key={i} title={v.title}>
+              {v.body}
             </Card>
           ))}
         </div>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { NEWS } from "@/content/trust";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/news")({
   head: () => ({
@@ -22,18 +22,24 @@ export const Route = createFileRoute("/news")({
 });
 
 function News() {
+  const news = useContent<any>("news.page");
+
   return (
     <>
-      <PageHero
-        eyebrow="Newsroom"
-        title="News & Announcements"
-        subtitle="Updates from the Trust, the school of arts and the preschool."
-      />
+      <PageHero eyebrow={news.eyebrow} title={news.title} subtitle={news.subtitle} />
 
       <Section>
         <div className="grid gap-6 md:grid-cols-3">
-          {NEWS.map((n) => (
-            <Card key={n.title} title={n.title} meta={n.date}>
+          {(news.items ?? []).map((n: any, i: number) => (
+            <Card key={i} title={n.title} meta={n.date}>
+              {n.image && (
+                <img
+                  src={n.image}
+                  alt={n.title}
+                  loading="lazy"
+                  className="mb-4 aspect-4/3 w-full rounded-sm object-cover"
+                />
+              )}
               {n.excerpt}
             </Card>
           ))}

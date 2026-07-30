@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
-import { PROGRAMS } from "@/content/trust";
+import { useContent } from "@/lib/site-content";
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
@@ -22,34 +22,29 @@ export const Route = createFileRoute("/programs")({
 });
 
 function Programs() {
+  const hero = useContent<any>("programs.hero");
+  const upcoming = useContent<any>("programs.upcoming");
+  const recurring = useContent<any>("programs.recurring");
+
   return (
     <>
-      <PageHero
-        eyebrow="Calendar"
-        title="Programs & Events"
-        subtitle="Performances, festivals and workshops that bring our students and community together."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
-      <Section eyebrow="Upcoming" title="What's coming up">
+      <Section eyebrow={upcoming.eyebrow} title={upcoming.title}>
         <div className="grid gap-6 md:grid-cols-2">
-          {PROGRAMS.map((p) => (
-            <Card key={p.title} title={p.title} meta={`${p.date} · ${p.place}`}>
+          {(upcoming.items ?? []).map((p: any, i: number) => (
+            <Card key={i} title={p.title} meta={[p.date, p.place].filter(Boolean).join(" · ")}>
               {p.summary}
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section tone="muted" eyebrow="Every year" title="Our recurring calendar">
+      <Section tone="muted" eyebrow={recurring.eyebrow} title={recurring.title}>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["Guru Purnima", "Honouring teachers with a student recital."],
-            ["Navaratri", "Nine evenings of music and dance."],
-            ["Annual Day", "Preschool and arts showcase for families."],
-            ["Summer Workshop", "Short intensives open to new learners."],
-          ].map(([title, body]) => (
-            <Card key={title} title={title}>
-              {body}
+          {(recurring.items ?? []).map((r: any, i: number) => (
+            <Card key={i} title={r.title}>
+              {r.body}
             </Card>
           ))}
         </div>
