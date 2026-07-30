@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type {} from "@tanstack/start-client-core";
+import type { RouteServerOptions } from "@tanstack/start-client-core/serverRoute";
 
 
 const BASE_URL = "https://nri-draft2.lovable.app";
