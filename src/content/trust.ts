@@ -119,3 +119,37 @@ export const NEWS = [
     excerpt: "Placeholder note on admissions, age criteria and the enrolment process.",
   },
 ] as const;
+
+export const UNITS = {
+  ashwamedha: {
+    name: "Ashwamedha School of Arts",
+    tagline: "Classical arts in the guru–shishya tradition",
+    description:
+      "Bharatanatyam, Carnatic vocal, mridangam and veena taught in graded, layered stages — from a child's first adavu to the arangetram stage.",
+    film: [
+      { alt: "Ashwamedha performance", caption: "Arangetram" },
+      { alt: "Ashwamedha class", caption: "Class in session" },
+      { alt: "Ashwamedha recital", caption: "Recital" },
+      { alt: "Ashwamedha students", caption: "Students" },
+    ],
+  },
+  preschool: {
+    name: "Preschool",
+    tagline: "Gentle, playful early years",
+    description:
+      "A play-based foundation programme where language, movement, stories and shlokas grow together in small, warmly supported groups.",
+    film: [
+      { alt: "Preschool classroom", caption: "Classroom" },
+      { alt: "Preschool circle time", caption: "Circle time" },
+      { alt: "Preschool craft", caption: "Craft corner" },
+      { alt: "Preschool outdoor play", caption: "Outdoor play" },
+    ],
+  },
+} as const;
+
+export const TRUST_FILM = [
+  { alt: "Trust community programme", caption: "Community outreach" },
+  { alt: "Scholarship award ceremony", caption: "Scholarships" },
+  { alt: "Cultural festival evening", caption: "Cultural festival" },
+  { alt: "Value education session", caption: "Value education" },
+] as const;
