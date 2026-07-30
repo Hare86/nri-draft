@@ -4,6 +4,8 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/nri-logo.jpg.asset.json";
 import { cn } from "@/lib/utils";
 import { useContent } from "@/lib/site-content";
+import { useSession } from "@/lib/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -19,6 +21,7 @@ const nav = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const identity = useContent<any>("site.identity");
+  const { session } = useSession();
 
   return (
     <header className="sticky top-0 z-50 border-b border-gold/30 bg-navy text-cream">
@@ -57,6 +60,33 @@ export function SiteHeader() {
           >
             Donate
           </Link>
+          {session ? (
+            <>
+              <Link to="/admin" className="text-sm text-cream/85 hover:text-gold">
+                Admin
+              </Link>
+              <button
+                type="button"
+                onClick={() => supabase.auth.signOut()}
+                className="text-sm text-cream/85 hover:text-gold"
+              >
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/auth" search={{ mode: "signin" }} className="text-sm text-cream/85 hover:text-gold">
+                Log in
+              </Link>
+              <Link
+                to="/auth"
+                search={{ mode: "signup" }}
+                className="rounded-sm border border-gold/60 px-3 py-1.5 text-sm font-semibold text-gold hover:bg-gold/10"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </nav>
 
         <button
@@ -91,6 +121,32 @@ export function SiteHeader() {
           >
             Donate / Get Involved
           </Link>
+          {session ? (
+            <>
+              <Link to="/admin" onClick={() => setOpen(false)} className="border-t border-cream/10 py-3 text-sm text-cream/85">
+                Admin
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  supabase.auth.signOut();
+                }}
+                className="border-t border-cream/10 py-3 text-left text-sm text-cream/85"
+              >
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/auth" search={{ mode: "signin" }} onClick={() => setOpen(false)} className="border-t border-cream/10 py-3 text-sm text-cream/85">
+                Log in
+              </Link>
+              <Link to="/auth" search={{ mode: "signup" }} onClick={() => setOpen(false)} className="border-t border-cream/10 py-3 text-sm font-semibold text-gold">
+                Sign up
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
