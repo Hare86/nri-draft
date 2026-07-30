@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { RouteServerOptions } from "@tanstack/start-client-core";
 
 
 const BASE_URL = "https://nri-draft2.lovable.app";
@@ -24,7 +23,7 @@ const entries: SitemapEntry[] = [
   { path: "/user-guide", changefreq: "yearly", priority: "0.3" },
 ];
 
-export const Route = createFileRoute("/sitemap.xml")({
+const routeOptions = {
   server: {
     handlers: {
       GET: async () => {
@@ -56,4 +55,6 @@ export const Route = createFileRoute("/sitemap.xml")({
       },
     },
   },
-});
+};
+
+export const Route = createFileRoute("/sitemap.xml")(routeOptions as never);
