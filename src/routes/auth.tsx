@@ -2,10 +2,12 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 import { useSession } from "@/lib/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -72,6 +74,26 @@ function AuthPage() {
     }
   }
 
+  async function oauth(provider: "google" | "apple") {
+    setBusy(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth(provider, {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) {
+        toast.error(result.error.message ?? "Sign-in failed");
+        return;
+      }
+      if (result.redirected) return;
+      navigate({ to: "/admin" });
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Sign-in failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16">
       <h1 className="font-display text-3xl font-semibold">
@@ -93,7 +115,36 @@ function AuthPage() {
         </p>
       )}
 
-      <form onSubmit={submit} className="crest-frame mt-8 space-y-4 rounded-sm bg-card p-6">
+      {mode !== "forgot" && (
+        <div className="mt-8 space-y-3">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy}
+            onClick={() => oauth("google")}
+            className="w-full"
+          >
+            Continue with Google
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={busy}
+            onClick={() => oauth("apple")}
+            className="w-full"
+          >
+            Continue with Apple
+          </Button>
+          <div className="flex items-center gap-3 pt-1 text-xs uppercase tracking-widest text-muted-foreground">
+            <span className="h-px flex-1 bg-border" />
+            or use email
+            <span className="h-px flex-1 bg-border" />
+          </div>
+        </div>
+      )}
+
+      <form onSubmit={submit} className="crest-frame mt-6 space-y-4 rounded-sm bg-card p-6">
+
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
