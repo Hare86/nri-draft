@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, HandHeart, Music, Sparkles } from "lucide-react";
-import heroArts from "@/assets/hero-arts.jpg";
+import homeBg from "@/assets/AMS_12.jpg.asset.json";
 import logo from "@/assets/nri-logo.jpg.asset.json";
 import { Card, Section } from "@/components/site/Primitives";
 import { useContent } from "@/lib/site-content";
@@ -37,8 +37,8 @@ function Index() {
     <>
       <section className="relative isolate overflow-hidden bg-navy text-cream">
         <img
-          src={heroArts}
-          alt="Bharatanatyam dancer performing in a traditional hall"
+          src={homeBg.url}
+          alt="Ashwamedha School of Arts students in classical dance costume"
           width={1600}
           height={900}
           className="absolute inset-0 h-full w-full object-cover opacity-30"

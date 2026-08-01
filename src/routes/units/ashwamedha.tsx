@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ExternalLink } from "lucide-react";
-import heroArts from "@/assets/hero-arts.jpg";
+import artsFallback from "@/assets/AMS_12.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { Card, PageHero, Section } from "@/components/site/Primitives";
 import { PhotoFilm, toSlides } from "@/components/site/PhotoFilm";
@@ -47,8 +47,8 @@ function Ashwamedha() {
             ))}
           </div>
           <img
-            src={overview.image || heroArts}
-            alt="Student performing Bharatanatyam"
+            src={overview.image || artsFallback.url}
+            alt="Ashwamedha School of Arts students in classical dance costume"
             width={1600}
             height={900}
             loading="lazy"
