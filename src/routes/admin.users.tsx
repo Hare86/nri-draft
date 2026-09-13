@@ -34,17 +34,7 @@ function AdminUsers() {
 
   async function toggle(userId: string, role: AppRole, has: boolean) {
     try {
-      if (has) {
-        const { error } = await supabase
-          .from("user_roles")
-          .delete()
-          .eq("user_id", userId)
-          .eq("role", role);
-        if (error) throw error;
-      } else {
-        const { error } = await supabase.from("user_roles").insert({ user_id: userId, role });
-        if (error) throw error;
-      }
+      await updateRole({ data: { userId, role, grant: !has } });
       await qc.invalidateQueries({ queryKey: ["admin-users"] });
       toast.success("Roles updated");
     } catch (err) {
