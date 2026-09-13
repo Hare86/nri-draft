@@ -198,7 +198,7 @@ function AuthPage() {
           className="w-full text-sm text-muted-foreground underline underline-offset-4"
         >
           {mode === "signin"
-            ? "First time here? Create the admin account"
+            ? "Don't have an account? Sign up"
             : "Already have an account? Sign in"}
         </button>
       </form>
