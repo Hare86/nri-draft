@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth, type AppRole } from "@/lib/use-auth";
+import { listUsersWithRoles, setUserRole } from "@/lib/admin-users.functions";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/users")({
@@ -14,22 +15,13 @@ const ROLES: AppRole[] = ["admin", "editor", "viewer"];
 function AdminUsers() {
   const { isAdmin, user } = useAuth();
   const qc = useQueryClient();
+  const fetchUsers = useServerFn(listUsersWithRoles);
+  const updateRole = useServerFn(setUserRole);
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin-users"],
     enabled: isAdmin,
-    queryFn: async () => {
-      const [{ data: profiles, error: pErr }, { data: roles, error: rErr }] = await Promise.all([
-        supabase.from("profiles").select("id,email,full_name,created_at"),
-        supabase.from("user_roles").select("user_id,role"),
-      ]);
-      if (pErr) throw pErr;
-      if (rErr) throw rErr;
-      return (profiles ?? []).map((p) => ({
-        ...p,
-        roles: (roles ?? []).filter((r) => r.user_id === p.id).map((r) => r.role as AppRole),
-      }));
-    },
+    queryFn: () => fetchUsers(),
   });
 
   if (!isAdmin) {
