@@ -51,7 +51,7 @@ function Index() {
             className="mx-auto h-32 w-32 rounded-full object-cover ring-2 ring-gold/70 sm:h-40 sm:w-40"
           />
           <h1 className="mt-8 font-display text-4xl leading-tight font-semibold sm:text-6xl">
-            {identity.name}
+            {identity.name} — Education, Arts & Values
           </h1>
           <div className="gold-rule mx-auto mt-6 w-48" />
           <p className="mt-6 text-sm tracking-[0.28em] text-gold uppercase sm:text-base">
