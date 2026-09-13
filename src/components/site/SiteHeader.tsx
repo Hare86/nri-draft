@@ -28,8 +28,10 @@ export function SiteHeader() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 lg:px-8">
         <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
-            src={identity.logo || logo.url}
+            src={logo.url}
             alt="Nagalakshmi Ramamurthy Iyer Educational Trust crest"
+            width={48}
+            height={48}
             className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-gold/60"
           />
           <span className="min-w-0">
