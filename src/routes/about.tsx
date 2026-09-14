@@ -32,11 +32,18 @@ function About() {
     <>
       <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} />
 
-      <Section eyebrow={history.eyebrow} title={history.title}>
+      <Section title={history.title}>
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="space-y-4 leading-relaxed text-muted-foreground">
+          <div className="space-y-6 leading-relaxed text-muted-foreground">
             {(history.paragraphs ?? []).map((p: any, i: number) => (
-              <p key={i}>{p.text}</p>
+              <div key={i}>
+                {p.heading ? (
+                  <h3 className="mb-2 font-display text-xl font-semibold text-foreground">
+                    {p.heading}
+                  </h3>
+                ) : null}
+                <p>{p.text}</p>
+              </div>
             ))}
           </div>
           <div className="crest-frame rounded-sm bg-cream p-8 text-center">
