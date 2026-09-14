@@ -224,25 +224,25 @@ export const SECTIONS: SectionDef[] = [
     group: "About Us",
     page: "/about",
     fields: [
-      textField("eyebrow", "Eyebrow"),
       textField("title", "Title"),
       {
         name: "paragraphs",
         label: "Paragraphs",
         type: "list",
         itemLabel: "Paragraph",
-        fields: [areaField("text", "Text")],
+        fields: [textField("heading", "Heading"), areaField("text", "Text")],
       },
       areaField("mottoNote", "Note under the motto"),
     ],
     defaults: {
-      eyebrow: "Our story",
       title: "History & vision",
       paragraphs: [
         {
+          heading: "Our history",
           text: "Placeholder history: the Trust was founded in memory of Smt. Nagalakshmi Ramamurthy Iyer, whose life was devoted to teaching, music and quiet service to her community. What began as informal classes at home has grown into a registered charitable trust serving students across age groups.",
         },
         {
+          heading: "Our vision",
           text: "Placeholder vision: to make high-quality education and classical arts training accessible regardless of means, and to raise a generation that is academically strong, artistically expressive and grounded in values.",
         },
       ],
